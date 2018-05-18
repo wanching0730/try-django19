@@ -1,6 +1,17 @@
 <!--DOCTYPE html-->
 <html>
     <body>
+
+        {% if messages %}
+            <div class="messages">
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
         <div class="container">
             {% block content %}
                 <h1>{{ title }} is working!</h1>
@@ -14,5 +25,6 @@
                 {% endfor %}
             {% endblock content %}
         </div>
+        
     </body>
 </html>
