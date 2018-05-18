@@ -129,4 +129,5 @@ STATICFILES_DIRS = [
 # static files for django admin (css, js, images)
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
 
+# for files that uploaded by user
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
