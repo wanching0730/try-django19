@@ -13,7 +13,8 @@ from .views import (
 urlpatterns = [
     url(r'^$', post_list),
     url(r'^create/$', post_create),
-    url(r'^detail/$', post_detail),
+    # url that accept id as param, and only accept digin (d+)
+    url(r'^detail/(?P<id>\d+)/$', post_detail),
     url(r'^update/$', post_update),
     url(r'^delete/$', post_delete),
 
