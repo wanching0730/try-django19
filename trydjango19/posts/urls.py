@@ -11,12 +11,12 @@ from .views import (
 
 # refer to the first come url
 urlpatterns = [
-    url(r'^$', post_list),
+    url(r'^$', post_list, name="list"),
     url(r'^create/$', post_create),
     # url that accept id as param, and only accept digin (d+)
     # included named URL 'detail'
     url(r'^detail/(?P<id>\d+)/$', post_detail, name='detail'),
     url(r'^update/(?P<id>\d+)/$', post_update, name='update'),
-    url(r'^delete/$', post_delete),
+    url(r'^delete/(?P<id>\d+)/$', post_delete),
 
 ]
