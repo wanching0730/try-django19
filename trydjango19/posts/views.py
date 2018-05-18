@@ -7,10 +7,17 @@ from .forms import PostForm
 # Create your views here.
 # functional view receive request, and send response
 def post_create(request):
-    form = PostForm()
+    # enable built in form validation
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        #print form.cleaned_data.get("title")
+        instance.save()
+
     context = {
         "form": form
     }
+
     return render(request, "post_form.html", context)
 
 def post_detail(request, id=None):
