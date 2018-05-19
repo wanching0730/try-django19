@@ -9,7 +9,8 @@ from .forms import PostForm
 # Create your views here.
 # functional view receive request, and send response
 def post_create(request):
-    # enable built in form validation
+    # 'request.POST or None' enable built in form validation
+    # 'request.FILES' enable data come in thru the form
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
