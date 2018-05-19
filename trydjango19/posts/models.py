@@ -2,10 +2,15 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.urlresolvers import reverse
 
+def upload_location(instance, filename):
+    filebase, extension = filename.split(".")
+    return "%s/%s.%s" %(instance.id, instance.id, extension)
+
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=120) 
     image = models.ImageField(
+     upload_to=upload_location,
      null=True, 
      blank=True,
      width_field="width_field",
