@@ -28,6 +28,8 @@ class Post(models.Model):
     def __str__(self): 
         return self.title
     
+    # absolute url: https://www.google.com
+    # relative url: home.php
     def get_absolute_url(self):
         return reverse("posts:detail", kwargs={"slug": self.slug})
 
