@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^create/$', post_create),
     # url that accept id as param, and only accept digin (d+)
     # included named URL 'detail'
-    url(r'^detail/(?P<id>\d+)/$', post_detail, name='detail'),
+    url(r'^detail/(?P<slug>[\w-]+)/$', post_detail, name='detail'),
     url(r'^update/(?P<id>\d+)/$', post_update, name='update'),
     url(r'^delete/(?P<id>\d+)/$', post_delete),
 

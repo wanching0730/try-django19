@@ -9,6 +9,7 @@ from .forms import PostForm
 # Create your views here.
 # functional view receive request, and send response
 def post_create(request):
+
     # 'request.POST or None' enable built in form validation
     # 'request.FILES' enable data come in thru the form
     form = PostForm(request.POST or None, request.FILES or None)
@@ -27,8 +28,8 @@ def post_create(request):
 
     return render(request, "post_form.html", context)
 
-def post_detail(request, id=None):
-    instance = get_object_or_404(Post, id=id)
+def post_detail(request, slug=None):
+    instance = get_object_or_404(Post, slug=slug)
     # variable to be passed to the view
     context = {
         "title": instance.title,
