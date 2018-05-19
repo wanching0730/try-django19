@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from .models import Post
 from .forms import PostForm
@@ -35,7 +36,21 @@ def post_detail(request, id=None):
     return render(request, "post_detail.html", context)
 
 def post_list(request):
-    queryset = Post.objects.all()
+    queryset_list = Post.objects.all()
+    # queryset = Post.objects.all().order_by("-timestamp")
+    paginator = Paginator(queryset_list, 10)
+
+    page = request.GET.get('page')
+
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver first page
+        queryset = paginator.page(1)
+    except EmptyPage:
+        # if page is out of range (eg: 9999), delivaer last page
+        queryset = paginator.page(paginator.num_pages)
+
     context = {
         "object_list": queryset,
         "title": "List"
