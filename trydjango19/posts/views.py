@@ -40,7 +40,8 @@ def post_list(request):
     # queryset = Post.objects.all().order_by("-timestamp")
     paginator = Paginator(queryset_list, 10)
 
-    page = request.GET.get('page')
+    page_request_var = "page"
+    page = request.GET.get(page_request_var)
 
     try:
         queryset = paginator.page(page)
@@ -53,7 +54,8 @@ def post_list(request):
 
     context = {
         "object_list": queryset,
-        "title": "List"
+        "title": "List",
+        "page_request_var": page_request_var
     }
     return render(request, "post_list.html", context)
 
