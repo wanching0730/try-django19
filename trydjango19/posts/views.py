@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from urllib.parse import quote_plus
+# from urllib.parse import quote_plus
 
 from .models import Post
 from .forms import PostForm
@@ -31,12 +31,12 @@ def post_create(request):
 
 def post_detail(request, slug=None):
     instance = get_object_or_404(Post, slug=slug)
-    share_string = quote_plus(instance.content)
+    # share_string = quote_plus(instance.content)
     # variable to be passed to the view
     context = {
         "title": instance.title,
         "instance": instance,
-        "share_string": share_string
+        # "share_string": share_string
     }
     return render(request, "post_detail.html", context)
 

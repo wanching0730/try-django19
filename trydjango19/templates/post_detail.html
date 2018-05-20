@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load urlify %}
 
 {% block head_title %}
     {{ instance.title }} | {{ block.super }}
@@ -20,17 +21,17 @@
             Share on Facebook
         </a>
 
-        <a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}/">
+        <a href="https://twitter.com/home?status={{ instance.content|truncatechars:80|urlify }}%20{{ request.build_absolute_uri }}/">
             Share on Twitter
         </a>
 
         <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Share on Google+</a>
 
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://swiftforentrepreneurs.com/&title={{ instance.title }}&summary={{ share_string }}&source={{ request.build_absolute_uri }}/">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://swiftforentrepreneurs.com/&title={{ instance.title }}&summary={{ nstance.content|truncatechars:80|urlify }}&source={{ request.build_absolute_uri }}/">
             Share on Linkedin
         </a>
 
-        <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}/&title={{ share_string }}.">Share on Reddit</a>
+        <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}/&title={{ nstance.content|truncatechars:80|urlify }}.">Share on Reddit</a>
 
         {{ instance.content|linebreaks }}<br/>
     </div>
