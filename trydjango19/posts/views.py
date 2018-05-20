@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 # from urllib.parse import quote_plus
@@ -10,6 +10,9 @@ from .forms import PostForm
 # Create your views here.
 # functional view receive request, and send response
 def post_create(request):
+
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
 
     # 'request.POST or None' enable built in form validation
     # 'request.FILES' enable data come in thru the form
@@ -65,6 +68,9 @@ def post_list(request):
     return render(request, "post_list.html", context)
 
 def post_update(request, id=None):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
+
     instance = get_object_or_404(Post, id=id)
     form = PostForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
@@ -82,6 +88,9 @@ def post_update(request, id=None):
     return render(request, "post_form.html", context)
 
 def post_delete(request, id=None):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
+
     instance = get_object_or_404(Post, id=id)
     instance.delete()
     messages.success(request, "Successfully deleted")
