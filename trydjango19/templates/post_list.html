@@ -45,7 +45,7 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if object_list.has_previous %}
-                        <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}&q={{ request.GET.q }}">previous</a>
+                        <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
                     {% endif %}
             
                     <span class="current">
@@ -53,7 +53,7 @@
                     </span>
             
                     {% if object_list.has_next %}
-                        <a href="?{{ page_request_var }}={{ object_list.next_page_number }}&q={{ request.GET.q }}">next</a>
+                        <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
                     {% endif %}
                 </span>
             </div>
