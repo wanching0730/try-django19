@@ -10,7 +10,7 @@ from django.utils import timezone
 # Post.objects.all()
 # Post.objects.create(user=user, title="Some Time")
 class PostManager(models.Manager):
-    def all(self, *args, **kwargs):
+    def active(self, *args, **kwargs):
         # Post.objects.all() = super(PostManager, self).all()
         return super(PostManager, self).filter(draft=False).filter(publish__lte=timezone.now())
 

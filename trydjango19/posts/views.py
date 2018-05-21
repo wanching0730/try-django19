@@ -45,7 +45,7 @@ def post_detail(request, slug=None):
     return render(request, "post_detail.html", context)
 
 def post_list(request):
-    queryset_list = Post.objects.all()
+    queryset_list = Post.objects.active()
     # queryset = Post.objects.all().order_by("-timestamp")
     paginator = Paginator(queryset_list, 10)
 
