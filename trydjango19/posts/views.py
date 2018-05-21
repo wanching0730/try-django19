@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils import timezone
+from django.db.models import Q
 # from urllib.parse import quote_plus
 
 from .models import Post
@@ -55,7 +56,17 @@ def post_list(request):
     if request.user.is_staff or request.user.is_superuser:
         queryset_list = Post.objects.all()
     # queryset = Post.objects.all().order_by("-timestamp")
-    paginator = Paginator(queryset_list, 10)
+
+    query = request.GET.get("q")
+    if query:
+        queryset_list = queryset_list.filter(
+            Q(title__icontains=query)|
+            Q(content__icontains=query)|
+            Q(user__first_name__icontains=query)|
+            Q(user__last_name__icontains=query)
+        ).distinct()
+
+    paginator = Paginator(queryset_list, 2)
 
     page_request_var = "page"
     page = request.GET.get(page_request_var)
